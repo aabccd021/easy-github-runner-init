@@ -41,4 +41,3 @@ ssh "$root_host" "
 " 
 
 echo "Done! Runner $runner_name for $repo_url is now running on $user_host"
-
