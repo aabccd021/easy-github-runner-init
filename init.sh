@@ -1,7 +1,7 @@
 #!/bin/sh
 
-if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; then
-  echo "Usage: $0 <root_host> <user_host> <runner_name> <repo_url>"
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ] ||  [ -z "$5" ]; then
+  echo "Usage: $0 <root_host> <user_host> <runner_name> <repo_url> <token>" 
   echo "Example: $0 contabo contabo-gh contabo \"https://github.com/aabccd021/private-management\""
   exit 1
 fi
@@ -12,6 +12,7 @@ root_host="$1"
 user_host="$2"
 runner_name="$3"
 repo_url="$4"
+token="$5"
 
 user_host_name=$(ssh -G "$user_host" | awk '/^user / { print $2 }')
 
@@ -19,15 +20,6 @@ if [ -z "$user_host_name" ]; then
   echo "Could not determine username for $user_host"
   exit 1
 fi
-
-echo "Please open $repo_url/settings/actions/runners/new"
-echo "Enter token: "
-IFS= read -r token
-if [ -z "$token" ]; then
-  echo "No token entered."
-  exit 1
-fi
-echo "Token entered."
 
 repo_dirname=$(echo "$repo_url" | sed -e 's/https:\/\/github.com\///g')
 
