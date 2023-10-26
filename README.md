@@ -25,7 +25,7 @@ The user is able to run `ssh contabo-root "echo ok"` and  `ssh contabo-gh "echo 
 Then the user can install github-runner and runs it as service by running following command:
 
 ```sh
-curl -sSf "https://raw.githubusercontent.com/aabccd021/easy-ssh-init/main/init.sh" \
+curl -sSf "https://raw.githubusercontent.com/aabccd021/easy-github-runner-init/main/init.sh" \
     | sh -s contabo-root contabo-gh my-runner "https://github.com/username/repo"
 ```
 
