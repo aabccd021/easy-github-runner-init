@@ -20,8 +20,7 @@ if [ -z "$user_host_name" ]; then
   exit 1
 fi
 
-xdg-open "$repo_url/settings/actions/runners/new" &
-
+echo "Please open $repo_url/settings/actions/runners/new"
 echo "Enter token: "
 read -r token
 if [ -z "$token" ]; then
