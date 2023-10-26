@@ -2,7 +2,7 @@
 
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ] ||  [ -z "$5" ]; then
   echo "Usage: $0 <root_host> <user_host> <runner_name> <repo_url> <token>" 
-  echo "Example: $0 contabo contabo-gh contabo \"https://github.com/aabccd021/private-management\""
+  echo "Example: $0 contabo contabo-gh contabo \"https://github.com/aabccd021/private-management\" ABCDEF123456789"
   exit 1
 fi
 
