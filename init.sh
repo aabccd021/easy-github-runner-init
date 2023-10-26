@@ -22,7 +22,7 @@ fi
 
 echo "Please open $repo_url/settings/actions/runners/new"
 echo "Enter token: "
-read -r token
+IFS= read -r token
 if [ -z "$token" ]; then
   echo "No token entered."
   exit 1
