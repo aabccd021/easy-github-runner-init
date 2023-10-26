@@ -35,8 +35,11 @@ ssh "$user_host" "
 
 ssh "$root_host" "
   cd /home/$user_host_name/runners/$repo_dirname
+  echo "installing service"
   ./svc.sh install
+  echo "starting service"
   ./svc.sh start
+  echo "service started"
 " 
 
 echo "Done! Runner $runner_name for $repo_url is now running on $user_host"
