@@ -47,3 +47,4 @@ ssh "$root_host" "
   ./svc.sh start
 " 
 
+echo "Done."
