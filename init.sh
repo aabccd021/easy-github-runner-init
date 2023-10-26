@@ -32,12 +32,10 @@ ssh "$user_host" "
   tar xzf ./actions-runner-linux-x64-2.311.0.tar.gz
   ./config.sh --url $repo_url --token $token --name $runner_name --replace --unattended
 " \
-&& echo "Runner $runner_name for $repo_url is now configured on $user_host"
-
-ssh "$root_host" "
+&& echo "Runner $runner_name for $repo_url is now configured on $user_host" \
+&& ssh "$root_host" "
   cd /home/$user_host_name/runners/$repo_dirname
   ./svc.sh install
   ./svc.sh start
-" 
-
-echo "Done! Runner $runner_name for $repo_url is now running on $user_host"
+" \
+&& echo "Done! Runner $runner_name for $repo_url is now running on $user_host"
