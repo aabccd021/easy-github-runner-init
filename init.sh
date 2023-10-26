@@ -33,6 +33,8 @@ ssh "$user_host" "
   ./config.sh --url $repo_url --token $token --name $runner_name --replace --unattended
 "
 
+echo "Runner $runner_name for $repo_url is now configured on $user_host"
+
 ssh "$root_host" "
   cd /home/$user_host_name/runners/$repo_dirname
   echo "installing service"
