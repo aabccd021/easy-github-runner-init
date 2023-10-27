@@ -36,5 +36,7 @@ ssh "$user_host" "
   cd /home/$user_host_name/runners/$repo_dirname
   ./svc.sh install
   ./svc.sh start
-"
+" \
+&& echo "Successfully installed runner $runner_name for $repo_url on $user_host" \
+&& echo "Check the runner status on $repo_url/settings/actions/runners"
 
