@@ -1,30 +1,29 @@
 #!/bin/sh
 
-if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ] ||  [ -z "$5" ]; then
-  echo "Usage: $0 <root_host> <user_host> <runner_name> <repo_url> <token>" 
-  echo "Example: $0 contabo contabo-gh contabo \"aabccd021/private-management\" ABCDEF123456789"
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; then
+  echo "Usage: $0 <host> <runner_name> <repo_url> <token>" 
+  echo "Example: $0 contabo-gh my-runner \"aabccd021/private-management\" ABCDEF123456789"
   exit 1
 fi
 
 set -eu
 
-root_host="$1"
-user_host="$2"
-runner_name="$3"
-repo_path="$4"
-token="$5"
+host="$1"
+runner_name="$2"
+repo_path="$3"
+token="$4"
 
-user_host_name=$(ssh -G "$user_host" | awk '/^user / { print $2 }')
+host_user=$(ssh -G "$host" | awk '/^user / { print $2 }')
 
-if [ -z "$user_host_name" ]; then
-  echo "Could not determine username for $user_host"
+if [ -z "$host_user" ]; then
+  echo "Could not determine username for $host"
   exit 1
 fi
 
 repo_url="https://github.com/$repo_path"
 echo "Installing runner $runner_name for $repo_url"
 
-ssh "$user_host" "
+ssh "$host" "
   rm -rf ~/runners/$repo_path 
   mkdir -p ~/runners/$repo_path
   cd ~/runners/$repo_path
@@ -32,12 +31,7 @@ ssh "$user_host" "
   echo '29fc8cf2dab4c195bb147384e7e2c94cfd4d4022c793b346a6175435265aa278  actions-runner-linux-x64-2.311.0.tar.gz' | shasum -a 256 -c
   tar xzf ./actions-runner-linux-x64-2.311.0.tar.gz
   ./config.sh --url $repo_url --token $token --name $runner_name --replace --unattended
-" \
-&& ssh "$root_host" "
-  cd /home/$user_host_name/runners/$repo_path
-  ./svc.sh install
-  ./svc.sh start
-" \
-&& echo "Successfully installed runner $runner_name for $repo_url" \
-&& echo "Check the runner status on $repo_url/settings/actions/runners"
-
+  ./svc.sh uninstall $host_user
+  ./svc.sh install $host_user
+  ./svc.sh start $host_user
+" 
