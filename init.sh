@@ -22,7 +22,7 @@ if [ -z "$user_host_name" ]; then
 fi
 
 repo_url="https://github.com/$repo_path"
-echo "Installing runner $runner_name for $repo_url on $user_host"
+echo "Installing runner $runner_name for $repo_url"
 
 ssh "$user_host" "
   rm -rf ~/runners/$repo_path 
@@ -38,6 +38,6 @@ ssh "$user_host" "
   ./svc.sh install
   ./svc.sh start
 " \
-&& echo "Successfully installed runner $runner_name for $repo_url on $user_host" \
+&& echo "Successfully installed runner $runner_name for $repo_url" \
 && echo "Check the runner status on $repo_url/settings/actions/runners"
 
