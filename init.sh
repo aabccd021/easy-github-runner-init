@@ -35,6 +35,7 @@ ssh "$user_host" "
 " \
 && ssh "$root_host" "
   cd /home/$user_host_name/runners/$repo_path
+  ./svc.sh uninstall
   ./svc.sh install
   ./svc.sh start
 " \
