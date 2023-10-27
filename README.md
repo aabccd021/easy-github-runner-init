@@ -26,12 +26,12 @@ Then the user can install github-runner and runs it as service by running follow
 
 ```sh
 curl -sSf "https://raw.githubusercontent.com/aabccd021/easy-github-runner-init/main/init.sh" \
-    | sh -s contabo-root contabo-gh my-runner "https://github.com/username/repo" ABCDEF123456789
+    | sh -s contabo-root contabo-gh my-runner "username/repo" ABCDEF123456789
 ```
 
 Where
 - `contabo-root` is the root login host
 - `contabo-gh` is the non-root login host
 - `my-runner` is the runner name
-- `"https://github.com/username/repo"` is the repo url
+- `"username/repo"` is the repo url without `https://github.com/` prefix
 - `ABCDEF123456789` is the token you can get from `https://github.com/user/repo/settings/actions/runners/new`

@@ -11,7 +11,7 @@ set -eu
 root_host="$1"
 user_host="$2"
 runner_name="$3"
-repo_url="$4"
+repo_path="$4"
 token="$5"
 
 user_host_name=$(ssh -G "$user_host" | awk '/^user / { print $2 }')
@@ -21,19 +21,19 @@ if [ -z "$user_host_name" ]; then
   exit 1
 fi
 
-repo_dirname=$(echo "$repo_url" | sed -e 's/https:\/\/github.com\///g')
+repo_url="https://github.com/$repo_path"
 
 ssh "$user_host" "
-  rm -rf ~/runners/$repo_dirname 
-  mkdir -p ~/runners/$repo_dirname
-  cd ~/runners/$repo_dirname
+  rm -rf ~/runners/$repo_path 
+  mkdir -p ~/runners/$repo_path
+  cd ~/runners/$repo_path
   curl -o actions-runner-linux-x64-2.311.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.311.0/actions-runner-linux-x64-2.311.0.tar.gz
   echo '29fc8cf2dab4c195bb147384e7e2c94cfd4d4022c793b346a6175435265aa278  actions-runner-linux-x64-2.311.0.tar.gz' | shasum -a 256 -c
   tar xzf ./actions-runner-linux-x64-2.311.0.tar.gz
   ./config.sh --url $repo_url --token $token --name $runner_name --replace --unattended
 " \
 && ssh "$root_host" "
-  cd /home/$user_host_name/runners/$repo_dirname
+  cd /home/$user_host_name/runners/$repo_path
   ./svc.sh install
   ./svc.sh start
 " \
