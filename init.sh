@@ -41,4 +41,3 @@ ssh "$user_host" "
 " \
 && echo "Successfully installed runner $runner_name for $repo_url" \
 && echo "Check the runner status on $repo_url/settings/actions/runners"
-
