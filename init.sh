@@ -14,9 +14,9 @@ runner_name="$3"
 repo_path="$4"
 token="$5"
 
-user_host_name=$(ssh -G "$user_host" | awk '/^user / { print $2 }')
+user_host_username=$(ssh -G "$user_host" | awk '/^user / { print $2 }')
 
-if [ -z "$user_host_name" ]; then
+if [ -z "$user_host_username" ]; then
   echo "Could not determine username for $user_host"
   exit 1
 fi
@@ -34,7 +34,7 @@ ssh "$user_host" "
   ./config.sh --url $repo_url --token $token --name $runner_name --replace --unattended
 " \
 && ssh "$root_host" "
-  cd /home/$user_host_name/runners/$repo_path
+  cd /home/$user_host_username/runners/$repo_path
   ./svc.sh uninstall
   ./svc.sh install
   ./svc.sh start
