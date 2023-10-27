@@ -2,7 +2,7 @@
 
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ] ||  [ -z "$5" ]; then
   echo "Usage: $0 <root_host> <user_host> <runner_name> <repo_url> <token>" 
-  echo "Example: $0 contabo contabo-gh contabo \"https://github.com/aabccd021/private-management\" ABCDEF123456789"
+  echo "Example: $0 contabo contabo-gh contabo \"aabccd021/private-management\" ABCDEF123456789"
   exit 1
 fi
 
@@ -22,6 +22,7 @@ if [ -z "$user_host_name" ]; then
 fi
 
 repo_url="https://github.com/$repo_path"
+echo "Installing runner $runner_name for $repo_url on $user_host"
 
 ssh "$user_host" "
   rm -rf ~/runners/$repo_path 
