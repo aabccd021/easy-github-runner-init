@@ -36,7 +36,7 @@ ssh "$user_host" "
 && ssh "$root_host" "
   cd /home/$user_host_username/runners/$repo_path
   ./svc.sh uninstall
-  ./svc.sh install
+  ./svc.sh install "$user_host_username" #https://github.com/actions/runner/issues/1864#issuecomment-1124660990
   ./svc.sh start
 " \
 && echo "Successfully installed runner $runner_name for $repo_url" \
